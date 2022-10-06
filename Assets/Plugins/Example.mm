@@ -23,6 +23,28 @@
     return 2;
 }
 
++ (int32_t)getStepCount {
+    // ログ出力
+   // NSLog(@"Hello World");
+
+    HKHealthStore *healthStore = [HKHealthStore new];
+    HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    NSSet *types = [NSSet setWithObject:type];    
+    [healthStore requestAuthorizationToShareTypes:nil readTypes:types completion:^(BOOL success, NSError *error) {
+        if (success) {
+            NSLog(@"Authorization Success!");
+            [self showSteps];
+        } else {
+            NSLog(@"ERROR! %@", error);
+        }
+    }];
+
+    
+    // 戻り値を返す
+    return 2;
+}
+
+
 @end
 
 // MARK:- extern "C" (Cリンケージで宣言)
